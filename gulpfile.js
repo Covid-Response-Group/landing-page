@@ -31,6 +31,8 @@
   const del = require('del');
   const path = require('path');
   const browserSync = require('browser-sync').create();
+  const ghPages = require('gulp-gh-pages');
+
 
   /**
    * Require gulp task from file
@@ -316,8 +318,16 @@
     cfg.task.copyFilesProd,
   ), true);
 
+
+  gulp.task('deploy', function() {
+    return gulp.src('./production/**/*')
+      .pipe(ghPages());
+  });
+
   /**
   * Fix JS files
   */
   gulp.task('fix-js', gulp.series(cfg.task.lintJs));
+
+
 })();
